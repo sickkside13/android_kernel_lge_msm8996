@@ -2592,6 +2592,7 @@ static ssize_t f2fs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
 		blk_start_plug(&plug);
 		ret = __generic_file_write_iter(iocb, from);
 		blk_finish_plug(&plug);
+		clear_inode_flag(inode, FI_NO_PREALLOC);
 
 		if (ret > 0)
 			f2fs_update_iostat(F2FS_I_SB(inode), APP_WRITE_IO, ret);

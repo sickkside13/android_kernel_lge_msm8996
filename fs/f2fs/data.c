@@ -845,6 +845,9 @@ int f2fs_preallocate_blocks(struct inode *inode, loff_t pos,
 			return err;
 	}
 
+	if (is_inode_flag_set(inode, FI_NO_PREALLOC))
+		return 0;
+
 	map.m_lblk = F2FS_BLK_ALIGN(pos);
 	map.m_len = F2FS_BYTES_TO_BLK(pos + count);
 	if (map.m_len > map.m_lblk)
